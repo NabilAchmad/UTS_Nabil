@@ -12,13 +12,16 @@ class MovieController extends Controller
 {
     protected $apiService;
 
-    public function __construct(ApiService $apiService)
-    {
+    public function __construct(ApiService $apiService) {
         $this->apiService = $apiService;
     }
 
-    public function getMovie(){
-        $movie = $this->apiService->getMovie();
-        return view('movies.index', compact('movie'));
+    public function getMovie() {
+        $data = $this->apiService->getMovie();
+        return view('movie', [
+            'media' => $data['media'] ?? [],
+            'ratings' => $data['ratings'] ?? []
+        ]);
+
     }
 }
